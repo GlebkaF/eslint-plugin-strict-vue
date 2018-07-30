@@ -26,7 +26,6 @@ RuleTester.setDefaultConfig({
 
 var ruleTester = new RuleTester();
 ruleTester.run("enforce-vuex-action-doc", rule, {
-
     valid: [     
             `const store = {
                 actions: {}
@@ -59,8 +58,7 @@ ruleTester.run("enforce-vuex-action-doc", rule, {
                 }
             };`,
             errors: [{
-                message: "Fill me in.",
-                type: "Me too"
+                message: "Every method in vuex store should be preceed by jsdoc"
             }]
         },
         {
@@ -72,8 +70,7 @@ ruleTester.run("enforce-vuex-action-doc", rule, {
                 };
             }`,
             errors: [{
-                message: "Every method in vuex store should be preceed by jsdoc",
-                type: "Me too"
+                message: "Every method in vuex store should be preceed by jsdoc"
             }]
         },
     ]
