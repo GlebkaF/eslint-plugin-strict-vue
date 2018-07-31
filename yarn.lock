@@ -749,10 +749,6 @@ progress@^1.1.8:
   version "1.1.8"
   resolved "http://sinopia.app.s/progress/-/progress-1.1.8.tgz#e260c78f6161cdd9b0e56cc3e0a85de17c7a57be"
 
-ramda@^0.25.0:
-  version "0.25.0"
-  resolved "https://registry.npmjs.org/ramda/-/ramda-0.25.0.tgz#8fdf68231cffa90bc2f9460390a0cb74a29b29a9"
-
 readable-stream@^2.2.2:
   version "2.3.6"
   resolved "http://sinopia.app.s/readable-stream/-/readable-stream-2.3.6.tgz#b11c27d88b8ff1fbe070643cf94b0c79ae1b0aaf"

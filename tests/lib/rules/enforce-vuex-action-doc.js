@@ -20,18 +20,21 @@ RuleTester.setDefaultConfig({
   });
 
 
-//------------------------------------------------------------------------------
-// Tests
-//------------------------------------------------------------------------------
-
 var ruleTester = new RuleTester();
+
+const ERROR_MESSAGE = "Actions in vuex store should has jsdoc";
+const PROPERTY_NAME = "actions";
+const VUEX_STORE_CORE_PROPERTY = "state: {}";
+
 ruleTester.run("enforce-vuex-action-doc", rule, {
     valid: [     
             `const store = {
-                actions: {}
+                ${VUEX_STORE_CORE_PROPERTY},
+                ${PROPERTY_NAME}: {}
             };`,
             `const store = {
-                actions: {
+                ${VUEX_STORE_CORE_PROPERTY},
+                ${PROPERTY_NAME}: {
                     /**
                      * another jsdoc
                      */
@@ -40,37 +43,106 @@ ruleTester.run("enforce-vuex-action-doc", rule, {
             };`,        
             `function createStore() {
                 return {
-                    actions: {
+                    ${VUEX_STORE_CORE_PROPERTY},
+                    ${PROPERTY_NAME}: {
                         /**
                          * Regular jsdoc
                          */
                         initState() {}
                     }
                 };
-            }`        
+            }`,
+            // Valid key with arrow function
+            `const store = {                
+                ${VUEX_STORE_CORE_PROPERTY},
+                ${PROPERTY_NAME}: {
+                    // some docs
+                    initState: () => {}
+                }
+            };`,
+            // Valid key with regular function
+            `const store = {
+                ${VUEX_STORE_CORE_PROPERTY},
+                ${PROPERTY_NAME}: {
+                    /* Some docs */
+                    initState: function initState ()  {}
+                }
+            };`   
     ],
 
     invalid: [
+        // Without comment at all
         {
             code: `const store = {
-                actions: {
+                ${VUEX_STORE_CORE_PROPERTY},
+                ${PROPERTY_NAME}: {
                     initState() {}
                 }
             };`,
             errors: [{
-                message: "Every method in vuex store should be preceed by jsdoc"
+                message: ERROR_MESSAGE
             }]
         },
         {
+            code: `const store = {
+                ${VUEX_STORE_CORE_PROPERTY},
+                ${PROPERTY_NAME}: {
+                    initState: () => {}
+                }
+            };`,
+            errors: [{
+                message: ERROR_MESSAGE
+            }]
+        },
+        {
+            code: `const store = {
+                ${VUEX_STORE_CORE_PROPERTY},
+                ${PROPERTY_NAME}: {
+                    initState: function initState() {}
+                }
+            };`,
+            errors: [{
+                message: ERROR_MESSAGE
+            }]
+        },
+        // Empty comment Line
+        {
+            code: `const store = {
+                ${VUEX_STORE_CORE_PROPERTY},
+                ${PROPERTY_NAME}: {
+                    // 
+                    initState() {},
+                }
+            };`,
+            errors: [{
+                message: ERROR_MESSAGE
+            }]
+        },
+        // Empty comment Block
+        {
+            code: `const store = {
+                ${VUEX_STORE_CORE_PROPERTY},
+                ${PROPERTY_NAME}: {
+                    /*        */
+                    initState() {},
+                }
+            };`,
+            errors: [{
+                message: ERROR_MESSAGE
+            }]
+        },
+        // Store creator function w/o comment
+        {
             code: `function createStore() {
                 return {
-                    actions: {
+                    ${VUEX_STORE_CORE_PROPERTY},
+                    ${PROPERTY_NAME}: {
                         initState() {}
                     }
                 };
             }`,
             errors: [{
-                message: "Every method in vuex store should be preceed by jsdoc"
+                message: ERROR_MESSAGE
             }]
         },
     ]
