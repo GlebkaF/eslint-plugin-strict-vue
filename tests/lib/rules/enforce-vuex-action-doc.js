@@ -67,7 +67,18 @@ ruleTester.run("enforce-vuex-action-doc", rule, {
                     /* Some docs */
                     initState: function initState ()  {}
                 }
-            };`   
+            };`,
+            // es6 property shorthand syntax
+            `
+            const ${PROPERTY_NAME} = {
+                /* Some docs */
+                    initState: function initState ()  {}
+            }
+            
+            const store = {
+                ${VUEX_STORE_CORE_PROPERTY},
+                ${PROPERTY_NAME}
+            };`,
     ],
 
     invalid: [
@@ -141,6 +152,22 @@ ruleTester.run("enforce-vuex-action-doc", rule, {
                     }
                 };
             }`,
+            errors: [{
+                message: ERROR_MESSAGE
+            }]
+        },
+        // es6 property shorthand syntax
+        {
+            code:`
+            const justVariableForSettingUpSomeScope = '';
+            const ${PROPERTY_NAME} = {
+                    initState: function initState ()  {}
+            }
+            
+            const store = {
+                ${VUEX_STORE_CORE_PROPERTY},
+                ${PROPERTY_NAME}
+            };`,
             errors: [{
                 message: ERROR_MESSAGE
             }]
