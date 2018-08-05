@@ -1,38 +1,26 @@
-/**
- * @fileoverview Every action in vuex store should preceded by jsdoc
- * @author glebkaf
- */
-"use strict";
-
-//------------------------------------------------------------------------------
-// Requirements
-//------------------------------------------------------------------------------
-
-var rule = require("../../../lib/rules/enforce-vuex-action-doc"),
-
-RuleTester = require("eslint").RuleTester;
+const { RuleTester } = require("eslint")
+const rule = require("../../../lib/rules/enforce-vuex-action-doc")
 
 RuleTester.setDefaultConfig({
-    parserOptions: {
-      ecmaVersion: 6,
-      sourceType: "module"
-    }
-  });
+  parserOptions: {
+    ecmaVersion: 6,
+    sourceType: "module",
+  },
+})
 
+const ruleTester = new RuleTester()
 
-var ruleTester = new RuleTester();
-
-const ERROR_MESSAGE = "Actions in vuex store should has jsdoc";
-const PROPERTY_NAME = "actions";
-const VUEX_STORE_CORE_PROPERTY = "state: {}";
+const ERROR_MESSAGE = "Actions in vuex store should has jsdoc"
+const PROPERTY_NAME = "actions"
+const VUEX_STORE_CORE_PROPERTY = "state: {}"
 
 ruleTester.run("enforce-vuex-action-doc", rule, {
-    valid: [     
-            `const store = {
+  valid: [
+    `const store = {
                 ${VUEX_STORE_CORE_PROPERTY},
                 ${PROPERTY_NAME}: {}
             };`,
-            `const store = {
+    `const store = {
                 ${VUEX_STORE_CORE_PROPERTY},
                 ${PROPERTY_NAME}: {
                     /**
@@ -40,8 +28,8 @@ ruleTester.run("enforce-vuex-action-doc", rule, {
                      */
                     initState() {}
                 }
-            };`,        
-            `function createStore() {
+            };`,
+    `function createStore() {
                 return {
                     ${VUEX_STORE_CORE_PROPERTY},
                     ${PROPERTY_NAME}: {
@@ -52,24 +40,24 @@ ruleTester.run("enforce-vuex-action-doc", rule, {
                     }
                 };
             }`,
-            // Valid key with arrow function
-            `const store = {                
+    // Valid key with arrow function
+    `const store = {                
                 ${VUEX_STORE_CORE_PROPERTY},
                 ${PROPERTY_NAME}: {
                     // some docs
                     initState: () => {}
                 }
             };`,
-            // Valid key with regular function
-            `const store = {
+    // Valid key with regular function
+    `const store = {
                 ${VUEX_STORE_CORE_PROPERTY},
                 ${PROPERTY_NAME}: {
                     /* Some docs */
                     initState: function initState ()  {}
                 }
             };`,
-            // es6 property shorthand syntax
-            `
+    // es6 property shorthand syntax
+    `
             const ${PROPERTY_NAME} = {
                 /* Some docs */
                     initState: function initState ()  {}
@@ -79,72 +67,82 @@ ruleTester.run("enforce-vuex-action-doc", rule, {
                 ${VUEX_STORE_CORE_PROPERTY},
                 ${PROPERTY_NAME}
             };`,
-    ],
+  ],
 
-    invalid: [
-        // Without comment at all
-        {
-            code: `const store = {
+  invalid: [
+    // Without comment at all
+    {
+      code: `const store = {
                 ${VUEX_STORE_CORE_PROPERTY},
                 ${PROPERTY_NAME}: {
                     initState() {}
                 }
             };`,
-            errors: [{
-                message: ERROR_MESSAGE
-            }]
-        },
+      errors: [
         {
-            code: `const store = {
+          message: ERROR_MESSAGE,
+        },
+      ],
+    },
+    {
+      code: `const store = {
                 ${VUEX_STORE_CORE_PROPERTY},
                 ${PROPERTY_NAME}: {
                     initState: () => {}
                 }
             };`,
-            errors: [{
-                message: ERROR_MESSAGE
-            }]
-        },
+      errors: [
         {
-            code: `const store = {
+          message: ERROR_MESSAGE,
+        },
+      ],
+    },
+    {
+      code: `const store = {
                 ${VUEX_STORE_CORE_PROPERTY},
                 ${PROPERTY_NAME}: {
                     initState: function initState() {}
                 }
             };`,
-            errors: [{
-                message: ERROR_MESSAGE
-            }]
-        },
-        // Empty comment Line
+      errors: [
         {
-            code: `const store = {
+          message: ERROR_MESSAGE,
+        },
+      ],
+    },
+    // Empty comment Line
+    {
+      code: `const store = {
                 ${VUEX_STORE_CORE_PROPERTY},
                 ${PROPERTY_NAME}: {
                     // 
                     initState() {},
                 }
             };`,
-            errors: [{
-                message: ERROR_MESSAGE
-            }]
-        },
-        // Empty comment Block
+      errors: [
         {
-            code: `const store = {
+          message: ERROR_MESSAGE,
+        },
+      ],
+    },
+    // Empty comment Block
+    {
+      code: `const store = {
                 ${VUEX_STORE_CORE_PROPERTY},
                 ${PROPERTY_NAME}: {
                     /*        */
                     initState() {},
                 }
             };`,
-            errors: [{
-                message: ERROR_MESSAGE
-            }]
-        },
-        // Store creator function w/o comment
+      errors: [
         {
-            code: `function createStore() {
+          message: ERROR_MESSAGE,
+        },
+      ],
+    },
+    // Store creator function w/o comment
+    {
+      code: `function createStore() {
                 return {
                     ${VUEX_STORE_CORE_PROPERTY},
                     ${PROPERTY_NAME}: {
@@ -152,13 +150,15 @@ ruleTester.run("enforce-vuex-action-doc", rule, {
                     }
                 };
             }`,
-            errors: [{
-                message: ERROR_MESSAGE
-            }]
-        },
-        // es6 property shorthand syntax
+      errors: [
         {
-            code:`
+          message: ERROR_MESSAGE,
+        },
+      ],
+    },
+    // es6 property shorthand syntax
+    {
+      code: `
             const justVariableForSettingUpSomeScope = '';
             const ${PROPERTY_NAME} = {
                     initState: function initState ()  {}
@@ -168,9 +168,11 @@ ruleTester.run("enforce-vuex-action-doc", rule, {
                 ${VUEX_STORE_CORE_PROPERTY},
                 ${PROPERTY_NAME}
             };`,
-            errors: [{
-                message: ERROR_MESSAGE
-            }]
+      errors: [
+        {
+          message: ERROR_MESSAGE,
         },
-    ]
-});
+      ],
+    },
+  ],
+})
