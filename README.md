@@ -1,13 +1,18 @@
 # eslint-plugin-n1-vuex-plugin
 
 Набор eslint правил для vuex сторов N1.RU
-## Подключить в тест режиме кудато:
+## Подключить в тест режиме куда-то:
 ```js
 const config = require('@n1/eslint-config');
 config.plugins.push('n1-vuex-plugin')
 config.rules['n1-vuex-plugin/enforce-vuex-action-doc'] = 'error';
 module.exports = config;
 ```
+
+## Запуск отдельного правила
+`npx eslint ./scripts/N1/Public/* --plugin n1-vuex-plugin --rule 'n1-vuex-plugin/enforce-vuex-action-doc: error' --no-eslintrc --parser babel-eslint`
+
+
 ## Installation
 
 You'll first need to install [ESLint](http://eslint.org):
