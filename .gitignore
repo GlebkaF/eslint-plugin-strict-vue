@@ -1,2 +1,4 @@
 node_modules
 .npmrc
+.cache/
+yarn-error.log

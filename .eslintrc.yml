@@ -1,0 +1,29 @@
+extends:
+    - airbnb-base
+    - prettier
+parser: babel-eslint
+root: true
+plugins:
+    - import
+    - prettier
+rules:
+    quotes:
+        - error
+        - "double"
+    semi:
+        - error
+        - "never"
+    prettier/prettier:
+        - error
+        - semi: false
+          trailingComma: all
+    # Let Prettier take care of the following rules
+    comma-dangle: 0
+    arrow-parens: 0
+    object-curly-newline: 0
+    object-curly-spacing: 0
+    # Strict mode enabled by eslint-generator
+    strict: 0
+        
+
+    
