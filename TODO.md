@@ -1,5 +1,3 @@
-# Переделать тесты на describe, it
-
 # Убрать возврат dummyValue из findShorthandValue (поискать кейсы в n1/webapp)
 ## invalid cases
 ```js
@@ -29,7 +27,10 @@ import actions from '..';
 }
 ```
 
-
-# Добавить eslint + prettier
-
 # Добавить CI
+* Прогон тестов на препуш, линтер на прекомит
+* Сборка и публикация черех травис?
+
+# Написать README.md
+# Расширить правило enforce-action-jsdoc до require-jsdoc с опциями vue-props, vue-methods, vuex-actions, vuex-state
+# Строгай проверка на jsdoc?
