@@ -62,11 +62,25 @@ const createBaseCases = ({ comment }) => [
         };`,
   },
   {
-    title: "es6 property shorthand syntax",
+    title: "parent prop linked to object with different name",
     code: `
+        const awesomeName = {
+            ${comment}
+            initState: {}
+        }
+        
+        const store = {
+            ${VUEX_STORE_CORE_PROPERTY},
+            ${PROPERTY_NAME}: awesomeName
+        };`,
+  },
+  {
+    title: "parent prop is es6 property shorthand syntax",
+    code: `
+        const justVariableForSettingUpSomeScope = '';
         const ${PROPERTY_NAME} = {
             ${comment}
-            initState: function initState ()  {}
+            initState: {}
         }
         
         const store = {
@@ -75,12 +89,12 @@ const createBaseCases = ({ comment }) => [
         };`,
   },
   {
-    title: "es6 property shorthand syntax + property export",
+    title: "parent property export + shorthand",
     code: `
         export const ${PROPERTY_NAME} = {
             ${comment}
             initState: function initState ()  {}
-        }
+        };
         
         const store = {
             ${VUEX_STORE_CORE_PROPERTY},
@@ -88,17 +102,18 @@ const createBaseCases = ({ comment }) => [
         };`,
   },
   {
+    title: "child property linked to identyfier",
     code: `
-          const justVariableForSettingUpSomeScope = '';
-          const ${PROPERTY_NAME} = {
-                  ${comment}
-                  initState: function initState ()  {}
-          }
-          
-          const store = {
-              ${VUEX_STORE_CORE_PROPERTY},
-              ${PROPERTY_NAME}
-          };`,
+        const varibaleName = function initState ()  {};
+        const ${PROPERTY_NAME} = {
+            ${comment}
+            initState: varibaleName
+        };
+        
+        const store = {
+            ${VUEX_STORE_CORE_PROPERTY},
+            ${PROPERTY_NAME}
+        };`,
   },
 ]
 
@@ -123,6 +138,24 @@ const validCases = [
     code: `const store = {
       ${VUEX_STORE_CORE_PROPERTY},
       ${PROPERTY_NAME}: {}
+    };`,
+  },
+  {
+    title: "parent prop default import",
+    code: `
+    import ${PROPERTY_NAME} from 'store';
+    const store = {
+      ${VUEX_STORE_CORE_PROPERTY},
+      ${PROPERTY_NAME},
+    };`,
+  },
+  {
+    title: "parent prop named import",
+    code: `
+    import { ${PROPERTY_NAME} } from 'store';
+    const store = {
+      ${VUEX_STORE_CORE_PROPERTY},
+      ${PROPERTY_NAME},
     };`,
   },
 ]
