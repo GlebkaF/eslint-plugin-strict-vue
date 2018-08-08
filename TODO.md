@@ -4,6 +4,6 @@
 
 # Написать README.md
 # Расширить правило enforce-action-jsdoc до require-jsdoc с опциями vue-props, vue-methods, vuex-actions, vuex-state
-# Строгай проверка на jsdoc?
+# Строгай проверка на jsdoc? заменить гет комментс бефоре на getjsdoc
 
 # Добавить логгер?

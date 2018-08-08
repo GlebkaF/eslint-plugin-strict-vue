@@ -92,19 +92,6 @@ const createBaseCases = ({ comment }) => [
         };`,
   },
   {
-    title: "parent property export + shorthand",
-    code: `
-        export const ${PROPERTY_NAME} = {
-            ${comment}
-            initState: function initState ()  {}
-        };
-        
-        const store = {
-            ${VUEX_STORE_CORE_PROPERTY},
-            ${PROPERTY_NAME}
-        };`,
-  },
-  {
     title: "child property linked to identyfier",
     code: `
         const varibaleName = function initState ()  {};
@@ -130,6 +117,25 @@ const createBaseCases = ({ comment }) => [
               ${comment}
               initState() {},
             }
+        };`,
+  },
+  {
+    title: "deep nested store object",
+    code: `
+        export const mutations = {};
+    
+        const ${PROPERTY_NAME} = {
+            ${comment}
+            initState: function initState ()  {}
+        };
+        export default function createSsrStore() {
+          return function nestedFunctions() {
+            return {
+              ${VUEX_STORE_CORE_PROPERTY},
+              ${PROPERTY_NAME},
+              mutations
+            };
+          }
         };`,
   },
 ]
