@@ -1,12 +1,15 @@
-const R = require("ramda")
 const { RuleTester } = require("eslint")
 const rule = require("../../../lib/rules/enforce-vuex-action-doc")
 const { prepareCases } = require("../../utils")
 
 RuleTester.setDefaultConfig({
+  // TODO: Add this options to readme
   parserOptions: {
     ecmaVersion: 6,
     sourceType: "module",
+    ecmaFeatures: {
+      experimentalObjectRestSpread: true,
+    },
   },
 })
 
@@ -113,6 +116,20 @@ const createBaseCases = ({ comment }) => [
         const store = {
             ${VUEX_STORE_CORE_PROPERTY},
             ${PROPERTY_NAME}
+        };`,
+  },
+  {
+    title: "spread childs",
+    code: `
+        const getProps = () => {};
+        
+        const store = {
+            ${VUEX_STORE_CORE_PROPERTY},
+            ${PROPERTY_NAME}: {
+              ...getProps(),
+              ${comment}
+              initState() {},
+            }
         };`,
   },
 ]

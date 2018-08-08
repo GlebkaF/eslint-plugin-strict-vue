@@ -1,18 +1,3 @@
-# + valid cases
-```js
-// ТАкие кейсы мы не можем обрабатывать, просто скипаем
-import actions from '..';
-```
-```js
-// Скипаем:
-{
-    actions: {
-
-        ...createActions(['creditPeriod', 'interestRate', 'phone']),
-    }
-}
-```
-
 # Добавить CI
 * Прогон тестов на препуш, линтер на прекомит
 * Сборка и публикация черех травис?
@@ -20,3 +5,5 @@ import actions from '..';
 # Написать README.md
 # Расширить правило enforce-action-jsdoc до require-jsdoc с опциями vue-props, vue-methods, vuex-actions, vuex-state
 # Строгай проверка на jsdoc?
+
+# Добавить логгер?
