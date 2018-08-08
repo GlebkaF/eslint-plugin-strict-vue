@@ -9,8 +9,9 @@ config.rules['n1-vuex-plugin/enforce-vuex-action-doc'] = 'error';
 module.exports = config;
 ```
 
-## Запуск отдельного правила
-`npx eslint ./scripts/N1/Public/* --plugin n1-vuex-plugin --rule 'n1-vuex-plugin/enforce-vuex-action-doc: error' --no-eslintrc --parser babel-eslint`
+## Тестирование правила в репе:
+* `yarn add` or `yarn link` the package
+* then run: `npx eslint . --plugin n1-vuex-plugin --rule 'n1-vuex-plugin/enforce-vuex-action-doc: error' --no-eslintrc --parser babel-eslint`
 
 
 ## Installation
