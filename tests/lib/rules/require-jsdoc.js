@@ -17,23 +17,25 @@ const ruleTester = new RuleTester()
 
 const ERROR_MESSAGE = "Missing JSDoc comment."
 const PROPERTY_NAME = "actions"
-const VUEX_STORE_CORE_PROPERTY = "state: {}"
+const OPTIONS = [
+  {
+    require: {
+      VuexAction: true,
+    },
+  },
+]
+
+const getVuexCore = (prop = "state") => `${prop}: {},`
 
 // Base test cases are cases that could be both valid and invalid
 // depending on the comment before childProp
 const createBaseCases = ({ comment }) => [
   {
     title: "store object returned by function",
-    options: [
-      {
-        require: {
-          VuexAction: true,
-        },
-      },
-    ],
+    options: OPTIONS,
     code: `function createStore() {
             return {
-                ${VUEX_STORE_CORE_PROPERTY},
+                ${getVuexCore("state")}
                 ${PROPERTY_NAME}: {
                     ${comment}
                     initState() {}
@@ -43,15 +45,9 @@ const createBaseCases = ({ comment }) => [
   },
   {
     title: "child prop is es6 function shorthand",
-    options: [
-      {
-        require: {
-          VuexAction: true,
-        },
-      },
-    ],
+    options: OPTIONS,
     code: `const store = {
-            ${VUEX_STORE_CORE_PROPERTY},
+            ${getVuexCore("getters")}
             ${PROPERTY_NAME}: {
                 ${comment}
                 initState() {}
@@ -60,15 +56,9 @@ const createBaseCases = ({ comment }) => [
   },
   {
     title: "child prop is an arrow function",
-    options: [
-      {
-        require: {
-          VuexAction: true,
-        },
-      },
-    ],
+    options: OPTIONS,
     code: `const store = {                
-            ${VUEX_STORE_CORE_PROPERTY},
+            ${getVuexCore("mutations")}
             ${PROPERTY_NAME}: {
                 ${comment}
                 initState: () => {}
@@ -77,15 +67,9 @@ const createBaseCases = ({ comment }) => [
   },
   {
     title: "child prop is a regular function",
-    options: [
-      {
-        require: {
-          VuexAction: true,
-        },
-      },
-    ],
+    options: OPTIONS,
     code: `const store = {
-            ${VUEX_STORE_CORE_PROPERTY},
+            ${getVuexCore("modules")}
             ${PROPERTY_NAME}: {
                 ${comment}
                 initState: function initState ()  {}
@@ -94,13 +78,7 @@ const createBaseCases = ({ comment }) => [
   },
   {
     title: "parent prop linked to object with different name",
-    options: [
-      {
-        require: {
-          VuexAction: true,
-        },
-      },
-    ],
+    options: OPTIONS,
     code: `
         const awesomeName = {
             ${comment}
@@ -108,19 +86,13 @@ const createBaseCases = ({ comment }) => [
         }
         
         const store = {
-            ${VUEX_STORE_CORE_PROPERTY},
+            namespaced: true,
             ${PROPERTY_NAME}: awesomeName
         };`,
   },
   {
     title: "parent prop is es6 property shorthand syntax",
-    options: [
-      {
-        require: {
-          VuexAction: true,
-        },
-      },
-    ],
+    options: OPTIONS,
     code: `
         const justVariableForSettingUpSomeScope = '';
         const ${PROPERTY_NAME} = {
@@ -129,19 +101,13 @@ const createBaseCases = ({ comment }) => [
         }
         
         const store = {
-            ${VUEX_STORE_CORE_PROPERTY},
+            ${getVuexCore("state")}
             ${PROPERTY_NAME}
         };`,
   },
   {
     title: "child property linked to identyfier",
-    options: [
-      {
-        require: {
-          VuexAction: true,
-        },
-      },
-    ],
+    options: OPTIONS,
     code: `
         const varibaleName = function initState ()  {};
         const ${PROPERTY_NAME} = {
@@ -150,24 +116,18 @@ const createBaseCases = ({ comment }) => [
         };
         
         const store = {
-            ${VUEX_STORE_CORE_PROPERTY},
+            ${getVuexCore("state")}
             ${PROPERTY_NAME}
         };`,
   },
   {
     title: "spread childs",
-    options: [
-      {
-        require: {
-          VuexAction: true,
-        },
-      },
-    ],
+    options: OPTIONS,
     code: `
         const getProps = () => {};
         
         const store = {
-            ${VUEX_STORE_CORE_PROPERTY},
+            ${getVuexCore("state")}
             ${PROPERTY_NAME}: {
               ...getProps(),
               ${comment}
@@ -177,13 +137,7 @@ const createBaseCases = ({ comment }) => [
   },
   {
     title: "deep nested store object",
-    options: [
-      {
-        require: {
-          VuexAction: true,
-        },
-      },
-    ],
+    options: OPTIONS,
     code: `
         export const mutations = {};
     
@@ -194,7 +148,7 @@ const createBaseCases = ({ comment }) => [
         export default function createSsrStore() {
           return function nestedFunctions() {
             return {
-              ${VUEX_STORE_CORE_PROPERTY},
+              ${getVuexCore("state")}
               ${PROPERTY_NAME},
               mutations
             };
@@ -222,48 +176,50 @@ const validCases = [
   {
     title: "empty parent",
     code: `const store = {
-      ${VUEX_STORE_CORE_PROPERTY},
+      ${getVuexCore("state")}
       ${PROPERTY_NAME}: {}
     };`,
-    options: [
-      {
-        require: {
-          VuexAction: true,
-        },
-      },
-    ],
+    options: OPTIONS,
   },
   {
     title: "parent prop default import",
     code: `
     import ${PROPERTY_NAME} from 'store';
     const store = {
-      ${VUEX_STORE_CORE_PROPERTY},
+      ${getVuexCore("state")}
       ${PROPERTY_NAME},
     };`,
-    options: [
-      {
-        require: {
-          VuexAction: true,
-        },
-      },
-    ],
+    options: OPTIONS,
   },
   {
     title: "parent prop named import",
     code: `
     import { ${PROPERTY_NAME} } from 'store';
     const store = {
-      ${VUEX_STORE_CORE_PROPERTY},
+      ${getVuexCore("state")}
       ${PROPERTY_NAME},
     };`,
-    options: [
-      {
-        require: {
-          VuexAction: true,
-        },
-      },
-    ],
+    options: OPTIONS,
+  },
+  {
+    title: "Object has actions key, but it's not vuex store",
+    code: `
+    const store = {
+      justSomeKey: 'asd',
+      ${PROPERTY_NAME}: {
+        someKey() {},
+      }
+    };`,
+    options: OPTIONS,
+  },
+  {
+    title: "Actions is not an Object",
+    code: `
+    const store = {
+      ${getVuexCore("namespaced")}
+      ${PROPERTY_NAME}: "just string"
+    };`,
+    options: OPTIONS,
   },
 ]
 
@@ -272,7 +228,7 @@ const invalidCases = [
   {
     title: "jsdoc is empty comment line",
     code: `const store = {
-              ${VUEX_STORE_CORE_PROPERTY},
+              ${getVuexCore("state")}
               ${PROPERTY_NAME}: {
                   // 
                   initState() {},
@@ -283,18 +239,12 @@ const invalidCases = [
         message: ERROR_MESSAGE,
       },
     ],
-    options: [
-      {
-        require: {
-          VuexAction: true,
-        },
-      },
-    ],
+    options: OPTIONS,
   },
   {
     title: "jsdoc is empty comment block",
     code: `const store = {
-              ${VUEX_STORE_CORE_PROPERTY},
+              ${getVuexCore("state")}
               ${PROPERTY_NAME}: {
                   /*        */
                   initState() {},
@@ -305,13 +255,7 @@ const invalidCases = [
         message: ERROR_MESSAGE,
       },
     ],
-    options: [
-      {
-        require: {
-          VuexAction: true,
-        },
-      },
-    ],
+    options: OPTIONS,
   },
 ]
 
