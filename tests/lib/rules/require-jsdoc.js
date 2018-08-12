@@ -24,6 +24,13 @@ const VUEX_STORE_CORE_PROPERTY = "state: {}"
 const createBaseCases = ({ comment }) => [
   {
     title: "store object returned by function",
+    options: [
+      {
+        require: {
+          VuexAction: true,
+        },
+      },
+    ],
     code: `function createStore() {
             return {
                 ${VUEX_STORE_CORE_PROPERTY},
@@ -36,6 +43,13 @@ const createBaseCases = ({ comment }) => [
   },
   {
     title: "child prop is es6 function shorthand",
+    options: [
+      {
+        require: {
+          VuexAction: true,
+        },
+      },
+    ],
     code: `const store = {
             ${VUEX_STORE_CORE_PROPERTY},
             ${PROPERTY_NAME}: {
@@ -46,6 +60,13 @@ const createBaseCases = ({ comment }) => [
   },
   {
     title: "child prop is an arrow function",
+    options: [
+      {
+        require: {
+          VuexAction: true,
+        },
+      },
+    ],
     code: `const store = {                
             ${VUEX_STORE_CORE_PROPERTY},
             ${PROPERTY_NAME}: {
@@ -56,6 +77,13 @@ const createBaseCases = ({ comment }) => [
   },
   {
     title: "child prop is a regular function",
+    options: [
+      {
+        require: {
+          VuexAction: true,
+        },
+      },
+    ],
     code: `const store = {
             ${VUEX_STORE_CORE_PROPERTY},
             ${PROPERTY_NAME}: {
@@ -66,6 +94,13 @@ const createBaseCases = ({ comment }) => [
   },
   {
     title: "parent prop linked to object with different name",
+    options: [
+      {
+        require: {
+          VuexAction: true,
+        },
+      },
+    ],
     code: `
         const awesomeName = {
             ${comment}
@@ -79,6 +114,13 @@ const createBaseCases = ({ comment }) => [
   },
   {
     title: "parent prop is es6 property shorthand syntax",
+    options: [
+      {
+        require: {
+          VuexAction: true,
+        },
+      },
+    ],
     code: `
         const justVariableForSettingUpSomeScope = '';
         const ${PROPERTY_NAME} = {
@@ -93,6 +135,13 @@ const createBaseCases = ({ comment }) => [
   },
   {
     title: "child property linked to identyfier",
+    options: [
+      {
+        require: {
+          VuexAction: true,
+        },
+      },
+    ],
     code: `
         const varibaleName = function initState ()  {};
         const ${PROPERTY_NAME} = {
@@ -107,6 +156,13 @@ const createBaseCases = ({ comment }) => [
   },
   {
     title: "spread childs",
+    options: [
+      {
+        require: {
+          VuexAction: true,
+        },
+      },
+    ],
     code: `
         const getProps = () => {};
         
@@ -121,6 +177,13 @@ const createBaseCases = ({ comment }) => [
   },
   {
     title: "deep nested store object",
+    options: [
+      {
+        require: {
+          VuexAction: true,
+        },
+      },
+    ],
     code: `
         export const mutations = {};
     
@@ -162,6 +225,13 @@ const validCases = [
       ${VUEX_STORE_CORE_PROPERTY},
       ${PROPERTY_NAME}: {}
     };`,
+    options: [
+      {
+        require: {
+          VuexAction: true,
+        },
+      },
+    ],
   },
   {
     title: "parent prop default import",
@@ -171,6 +241,13 @@ const validCases = [
       ${VUEX_STORE_CORE_PROPERTY},
       ${PROPERTY_NAME},
     };`,
+    options: [
+      {
+        require: {
+          VuexAction: true,
+        },
+      },
+    ],
   },
   {
     title: "parent prop named import",
@@ -180,6 +257,13 @@ const validCases = [
       ${VUEX_STORE_CORE_PROPERTY},
       ${PROPERTY_NAME},
     };`,
+    options: [
+      {
+        require: {
+          VuexAction: true,
+        },
+      },
+    ],
   },
 ]
 
@@ -199,6 +283,13 @@ const invalidCases = [
         message: ERROR_MESSAGE,
       },
     ],
+    options: [
+      {
+        require: {
+          VuexAction: true,
+        },
+      },
+    ],
   },
   {
     title: "jsdoc is empty comment block",
@@ -212,6 +303,13 @@ const invalidCases = [
     errors: [
       {
         message: ERROR_MESSAGE,
+      },
+    ],
+    options: [
+      {
+        require: {
+          VuexAction: true,
+        },
       },
     ],
   },
