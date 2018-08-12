@@ -168,6 +168,23 @@ const createBaseCases = ({ comment }) => [
           }
         };`,
   },
+  {
+    title: "state is a function",
+    options: OPTIONS,
+    code: `
+        function initialState() {
+            return {
+                ${comment}
+                a: ''
+            }
+        }
+        
+        const store = {
+            ${getVuexCore()}
+            state: initialState,
+            getters: {}
+        }`,
+  },
 ]
 
 const baseValidCases = createBaseCases({ comment: "/** Simple valid jsdoc */" })
