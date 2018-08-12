@@ -1,11 +1,13 @@
 {
-  "name": "eslint-plugin-n1-vuex-plugin",
+  "name": "eslint-plugin-strict-vue",
   "version": "0.0.0",
-  "description": "Набор eslint правил для vuex сторов N1.RU",
+  "description": "A set of eslint rules to make your vue(x) code stricter",
   "keywords": [
     "eslint",
     "eslintplugin",
-    "eslint-plugin"
+    "eslint-plugin",
+    "eslint-plugin-vue",
+    "eslint-plugin-vuex"
   ],
   "author": "glebkaf",
   "main": "lib/index.js",

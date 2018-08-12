@@ -16,27 +16,28 @@ RuleTester.setDefaultConfig({
 const ruleTester = new RuleTester()
 
 const ERROR_MESSAGE = "Missing JSDoc comment."
-const PROPERTY_NAME = "actions"
+const ACTION_PROP = "actions"
+
 const OPTIONS = [
   {
     require: {
       VuexAction: true,
+      VuexState: true,
     },
   },
 ]
 
-const getVuexCore = (prop = "state") => `${prop}: {},`
+const getVuexCore = (prop = "getters") => `${prop}: {},`
 
 // Base test cases are cases that could be both valid and invalid
 // depending on the comment before childProp
 const createBaseCases = ({ comment }) => [
   {
     title: "store object returned by function",
-    options: OPTIONS,
     code: `function createStore() {
             return {
-                ${getVuexCore("state")}
-                ${PROPERTY_NAME}: {
+                ${getVuexCore()}
+                ${ACTION_PROP}: {
                     ${comment}
                     initState() {}
                 }
@@ -48,7 +49,7 @@ const createBaseCases = ({ comment }) => [
     options: OPTIONS,
     code: `const store = {
             ${getVuexCore("getters")}
-            ${PROPERTY_NAME}: {
+            ${ACTION_PROP}: {
                 ${comment}
                 initState() {}
             }
@@ -59,7 +60,7 @@ const createBaseCases = ({ comment }) => [
     options: OPTIONS,
     code: `const store = {                
             ${getVuexCore("mutations")}
-            ${PROPERTY_NAME}: {
+            ${ACTION_PROP}: {
                 ${comment}
                 initState: () => {}
             }
@@ -70,7 +71,7 @@ const createBaseCases = ({ comment }) => [
     options: OPTIONS,
     code: `const store = {
             ${getVuexCore("modules")}
-            ${PROPERTY_NAME}: {
+            ${ACTION_PROP}: {
                 ${comment}
                 initState: function initState ()  {}
             }
@@ -87,7 +88,7 @@ const createBaseCases = ({ comment }) => [
         
         const store = {
             namespaced: true,
-            ${PROPERTY_NAME}: awesomeName
+            ${ACTION_PROP}: awesomeName
         };`,
   },
   {
@@ -95,14 +96,14 @@ const createBaseCases = ({ comment }) => [
     options: OPTIONS,
     code: `
         const justVariableForSettingUpSomeScope = '';
-        const ${PROPERTY_NAME} = {
+        const ${ACTION_PROP} = {
             ${comment}
             initState: {}
         }
         
         const store = {
-            ${getVuexCore("state")}
-            ${PROPERTY_NAME}
+            ${getVuexCore()}
+            ${ACTION_PROP}
         };`,
   },
   {
@@ -110,14 +111,14 @@ const createBaseCases = ({ comment }) => [
     options: OPTIONS,
     code: `
         const varibaleName = function initState ()  {};
-        const ${PROPERTY_NAME} = {
+        const ${ACTION_PROP} = {
             ${comment}
             initState: varibaleName
         };
         
         const store = {
-            ${getVuexCore("state")}
-            ${PROPERTY_NAME}
+            ${getVuexCore()}
+            ${ACTION_PROP}
         };`,
   },
   {
@@ -127,8 +128,8 @@ const createBaseCases = ({ comment }) => [
         const getProps = () => {};
         
         const store = {
-            ${getVuexCore("state")}
-            ${PROPERTY_NAME}: {
+            ${getVuexCore()}
+            ${ACTION_PROP}: {
               ...getProps(),
               ${comment}
               initState() {},
@@ -141,15 +142,15 @@ const createBaseCases = ({ comment }) => [
     code: `
         export const mutations = {};
     
-        const ${PROPERTY_NAME} = {
+        const ${ACTION_PROP} = {
             ${comment}
             initState: function initState ()  {}
         };
         export default function createSsrStore() {
           return function nestedFunctions() {
             return {
-              ${getVuexCore("state")}
-              ${PROPERTY_NAME},
+              ${getVuexCore()}
+              ${ACTION_PROP},
               mutations
             };
           }
@@ -176,28 +177,28 @@ const validCases = [
   {
     title: "empty parent",
     code: `const store = {
-      ${getVuexCore("state")}
-      ${PROPERTY_NAME}: {}
+      ${getVuexCore()}
+      ${ACTION_PROP}: {}
     };`,
     options: OPTIONS,
   },
   {
     title: "parent prop default import",
     code: `
-    import ${PROPERTY_NAME} from 'store';
+    import ${ACTION_PROP} from 'store';
     const store = {
-      ${getVuexCore("state")}
-      ${PROPERTY_NAME},
+      ${getVuexCore()}
+      ${ACTION_PROP},
     };`,
     options: OPTIONS,
   },
   {
     title: "parent prop named import",
     code: `
-    import { ${PROPERTY_NAME} } from 'store';
+    import { ${ACTION_PROP} } from 'store';
     const store = {
-      ${getVuexCore("state")}
-      ${PROPERTY_NAME},
+      ${getVuexCore()}
+      ${ACTION_PROP},
     };`,
     options: OPTIONS,
   },
@@ -206,7 +207,7 @@ const validCases = [
     code: `
     const store = {
       justSomeKey: 'asd',
-      ${PROPERTY_NAME}: {
+      ${ACTION_PROP}: {
         someKey() {},
       }
     };`,
@@ -217,7 +218,7 @@ const validCases = [
     code: `
     const store = {
       ${getVuexCore("namespaced")}
-      ${PROPERTY_NAME}: "just string"
+      ${ACTION_PROP}: "just string"
     };`,
     options: OPTIONS,
   },
@@ -228,8 +229,8 @@ const invalidCases = [
   {
     title: "jsdoc is empty comment line",
     code: `const store = {
-              ${getVuexCore("state")}
-              ${PROPERTY_NAME}: {
+              ${getVuexCore()}
+              ${ACTION_PROP}: {
                   // 
                   initState() {},
               }
@@ -244,8 +245,8 @@ const invalidCases = [
   {
     title: "jsdoc is empty comment block",
     code: `const store = {
-              ${getVuexCore("state")}
-              ${PROPERTY_NAME}: {
+              ${getVuexCore()}
+              ${ACTION_PROP}: {
                   /*        */
                   initState() {},
               }
@@ -261,7 +262,7 @@ const invalidCases = [
 
 const { valid, invalid } = prepareCases(validCases, invalidCases)
 
-ruleTester.run("enforce-vuex-action-doc", rule, {
+ruleTester.run("require-jsdoc", rule, {
   valid,
   invalid,
 })
