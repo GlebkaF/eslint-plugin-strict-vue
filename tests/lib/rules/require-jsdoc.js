@@ -1,5 +1,5 @@
 const { RuleTester } = require("eslint")
-const rule = require("../../../lib/rules/enforce-vuex-action-doc")
+const rule = require("../../../lib/rules/require-jsdoc")
 const { prepareCases } = require("../../utils")
 
 RuleTester.setDefaultConfig({
@@ -15,7 +15,7 @@ RuleTester.setDefaultConfig({
 
 const ruleTester = new RuleTester()
 
-const ERROR_MESSAGE = "Actions in vuex store should has jsdoc"
+const ERROR_MESSAGE = "Missing JSDoc comment."
 const PROPERTY_NAME = "actions"
 const VUEX_STORE_CORE_PROPERTY = "state: {}"
 
