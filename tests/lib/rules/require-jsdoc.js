@@ -45,6 +45,18 @@ const createBaseCases = ({ comment }) => [
         }`,
   },
   {
+    title: "child prop is the state",
+    code: `function createStore() {
+            return {
+                ${getVuexCore("actions")}
+                state: {
+                    ${comment}
+                    initState() {}
+                }
+            };
+        }`,
+  },
+  {
     title: "child prop is es6 function shorthand",
     options: OPTIONS,
     code: `const store = {
@@ -257,6 +269,57 @@ const invalidCases = [
       },
     ],
     options: OPTIONS,
+  },
+
+  {
+    title: "state + actions",
+    code: `function createStore() {
+            return {
+                ${getVuexCore("actions")}
+                state: {
+                    someValue: '',
+                },
+                ${ACTION_PROP}: {
+                  initState() {}
+              }
+            };
+        }`,
+    errors: [
+      {
+        message: ERROR_MESSAGE,
+      },
+      {
+        message: ERROR_MESSAGE,
+      },
+    ],
+    options: OPTIONS,
+  },
+  {
+    title: "Only state rule enabled",
+    code: `function createStore() {
+            return {
+                ${getVuexCore("actions")}
+                state: {
+                    someValue: '',
+                },
+                ${ACTION_PROP}: {
+                  initState() {}
+              }
+            };
+        }`,
+    errors: [
+      {
+        message: ERROR_MESSAGE,
+      },
+    ],
+    options: [
+      {
+        require: {
+          VuexAction: false,
+          VuexState: true,
+        },
+      },
+    ],
   },
 ]
 
