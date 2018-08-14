@@ -3,13 +3,9 @@ const rule = require("../../../lib/rules/require-jsdoc")
 const { prepareCases } = require("../../utils")
 
 RuleTester.setDefaultConfig({
-  // TODO: Add this options to readme
   parserOptions: {
-    ecmaVersion: 6,
+    ecmaVersion: 2018,
     sourceType: "module",
-    ecmaFeatures: {
-      experimentalObjectRestSpread: true,
-    },
   },
 })
 

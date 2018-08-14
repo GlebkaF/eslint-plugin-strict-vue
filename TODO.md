@@ -1,11 +1,5 @@
-# Добавить CI
-* Прогон тестов на препуш, линтер на прекомит
-* Сборка и публикация черех травис?
+# CI: lint, test, publish
 
-# Написать README.md
-# Расширить правило require-jsdoc опциями vue-props, vue-methods
-# Строгай проверка на jsdoc? заменить гет комментс бефоре на getjsdoc
-
-# Добавить логгер?
-# add rule docs
-# remove this todo
+# rule: store properties order
+# rule: enforce namespaced vuex modules
+# rule: restrict rootGetters and rootState

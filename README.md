@@ -1,55 +1,43 @@
 # eslint-plugin-strict-vue
 
+<img src="https://raw.githubusercontent.com/GlebkaF/eslint-plugin-vue/master/strict-vue-face.png" width="180" align="right">
+
+Various ESLint rules to make you Vue(x) code a bit stricter
+
 ## Installation
 
 You'll first need to install [ESLint](http://eslint.org):
 
 ```
-$ npm i eslint --save-dev
+$ npm i eslint eslint-plugin-strict-vue --save-dev
 ```
-
-Next, install `eslint-plugin-strict-vue`:
-
-```
-$ npm install eslint-plugin-strict-vue --save-dev
-```
-
-**Note:** If you installed ESLint globally (using the `-g` flag) then you must also install `eslint-plugin-strict-vue` globally.
 
 ## Usage
 
-Add `strict-vue` to the plugins section of your `.eslintrc` configuration file. You can omit the `eslint-plugin-` prefix:
+Configure it in `package.json`.
 
 ```json
 {
-    "plugins": [
-        "strict-vue"
-    ]
+	"name": "my-awesome-project",
+	"eslintConfig": {
+		"parserOptions": {
+			"ecmaVersion": 2018,
+			"sourceType": "module"
+		},
+		"plugins": [
+			"strict-vue"
+		],
+		"rules": {
+			"strict-vue/require-jsdoc": "error"
+		}
+	}
 }
 ```
 
 
-Then configure the rules you want to use under the rules section.
+## Rules
 
-```json
-{
-    "rules": {
-        "strict-vue/require-jsdoc": [
-            "error",
-            {
-                require: {
-                    VuexAction: true,
-                    VuexState: false
-                }
-            }
-        ]
-    }
-}
-```
-
-## Supported Rules
-
-* `require-jsdoc` - Require JSdoc comments at Vue props, and Vuex actions and state.
+* [require-jsdoc](docs/rules/require-jsdoc.md) - require JSdoc comments for Vue props, and Vuex actions and state.
 
 
 ## Run rule standalone
