@@ -21,7 +21,8 @@ const ACTION_PROP = "actions"
 const OPTIONS = [
   {
     require: {
-      VuexAction: true,
+      VueProps: true,
+      VuexActions: true,
       VuexState: true,
     },
   },
@@ -34,6 +35,7 @@ const getVuexCore = (prop = "getters") => `${prop}: {},`
 const createBaseCases = ({ comment }) => [
   {
     title: "store object returned by function",
+    options: OPTIONS,
     code: `function createStore() {
             return {
                 ${getVuexCore()}
@@ -45,7 +47,21 @@ const createBaseCases = ({ comment }) => [
         }`,
   },
   {
+    title: "inline store object",
+    options: OPTIONS,
+    code: `
+             new Vuex.Store({
+                ${getVuexCore()}
+                ${ACTION_PROP}: {
+                    ${comment}
+                    initState() {}
+                }
+            });
+        `,
+  },
+  {
     title: "child prop is the state",
+    options: OPTIONS,
     code: `function createStore() {
             return {
                 ${getVuexCore("actions")}
@@ -184,6 +200,21 @@ const createBaseCases = ({ comment }) => [
             state: initialState,
             getters: {}
         }`,
+  },
+  {
+    title: "vue props",
+    options: OPTIONS,
+    code: `
+        export default {
+          data() {},
+          props: {
+            ${comment}
+            propA: {
+
+            }
+          }
+        }
+    `,
   },
 ]
 
@@ -332,7 +363,7 @@ const invalidCases = [
     options: [
       {
         require: {
-          VuexAction: false,
+          VuexActions: false,
           VuexState: true,
         },
       },
