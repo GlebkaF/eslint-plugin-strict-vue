@@ -1,7 +1,7 @@
 {
   "name": "eslint-plugin-strict-vue",
-  "version": "0.0.0",
-  "description": "A set of eslint rules to make your vue(x) code stricter",
+  "version": "0.1.0",
+  "description": "Various ESLint rules to make you Vue(x) code a bit stricter",
   "keywords": [
     "eslint",
     "eslintplugin",
@@ -10,6 +10,11 @@
     "eslint-plugin-vuex"
   ],
   "author": "glebkaf",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/GlebkaF/eslint-plugin-strict-vue"
+  },
   "main": "lib/index.js",
   "scripts": {
     "test": "mocha tests --recursive"
@@ -30,6 +35,5 @@
   },
   "engines": {
     "node": ">=8"
-  },
-  "license": "ISC"
+  }
 }
