@@ -1,6 +1,6 @@
 {
   "name": "eslint-plugin-strict-vue",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "A set of eslint rules to make your vue(x) code stricter",
   "keywords": [
     "eslint",
