@@ -278,6 +278,52 @@ const validCases = [
     };`,
     options: OPTIONS,
   },
+  {
+    title: "Should not throw error for store like objects",
+    code: `
+    const state = {
+      asd: 111
+    };
+
+    const storeLikeObject = {
+        commit: {},
+        getters: {},
+        state,
+        rootGetters: {},
+    };`,
+    options: OPTIONS,
+  },
+  {
+    title: "Should not throw error if only state and getters provided",
+    code: `
+    const state = {
+      asd: 111
+    };
+
+    const storeLikeObject = {
+        getters: {},
+        state
+    };`,
+    options: OPTIONS,
+  },
+  {
+    title: "Should not throw error when desctucturing state in action",
+    code: `
+    const state = {
+      asd: 1
+    };
+    
+    export default function a() {
+      return {
+        state: {},
+        actions: {
+            /** jsdoc */
+            action({ state, getters }){}
+        },
+      };
+    }`,
+    options: OPTIONS,
+  },
 ]
 
 const invalidCases = [
