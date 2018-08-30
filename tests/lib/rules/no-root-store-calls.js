@@ -1,6 +1,6 @@
 const R = require("ramda")
 const { RuleTester } = require("eslint")
-const rule = require("../../../lib/rules/no-global-assets")
+const rule = require("../../../lib/rules/no-root-store-calls")
 const { prepareCases } = require("../../utils")
 
 RuleTester.setDefaultConfig({
@@ -94,7 +94,7 @@ const validCases = [
 
 const { valid, invalid } = prepareCases(validCases, invalidCases)
 
-ruleTester.run("no-global-assets", rule, {
+ruleTester.run("no-root-store-calls", rule, {
   valid,
   invalid,
 })
