@@ -3,11 +3,11 @@
   "version": "0.1.1",
   "description": "Various ESLint rules to make you Vue(x) code a bit stricter",
   "keywords": [
-    "eslint",
-    "eslintplugin",
     "eslint-plugin",
-    "eslint-plugin-vue",
-    "eslint-plugin-vuex"
+    "vue",
+    "vuejs",
+    "vuex",
+    "vue require jsdoc"
   ],
   "author": "glebkaf",
   "license": "MIT",
