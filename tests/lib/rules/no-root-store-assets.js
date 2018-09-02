@@ -18,14 +18,15 @@ const invalidCases = [
     code: `
     const store = {
       state: {},
+      namespaced: true,
       getters: {
         getter(state, getters, rootState, rootGetters) {
     
         },
-        getter2: function (state, getters, rootState) {
+        getter2(state, getters, rS, rG) {
     
         },
-        getter3: (state, getters, rootState) => {
+        getter2(state, getters, { asd }, { qwe }) {
     
         },
       },
@@ -33,7 +34,7 @@ const invalidCases = [
     `,
     errors: R.times(
       R.always({
-        message: "Don't use rootState and rootGetters",
+        messageId: "avoidRootAssets",
       }),
       3,
     ),
@@ -42,17 +43,16 @@ const invalidCases = [
 
 const validCases = [
   {
-    title: "disapatch local action by calling ctx method",
+    title: "Getters like objects, but not getters",
     code: `
-      export default function createSomeStore() {
-        return {
-          actions: {
-            action(ctx) {
-              ctx.commit('1')
-            },
-          },
-        }
-      }
+    const store = {
+      state: {},
+      thisIsNotGetters: {
+        gettersLike(state, getters, rootState) {
+    
+        },
+      },
+    }
     `,
   },
 ]
