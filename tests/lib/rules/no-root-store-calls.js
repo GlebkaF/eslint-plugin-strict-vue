@@ -94,7 +94,7 @@ const validCases = [
 
 const { valid, invalid } = prepareCases(validCases, invalidCases)
 
-ruleTester.run("no-root-store-calls", rule, {
-  valid,
-  invalid,
-})
+// ruleTester.run("no-root-store-calls", rule, {
+//   valid,
+//   invalid,
+// })
