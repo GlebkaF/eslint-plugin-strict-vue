@@ -16,27 +16,26 @@ const invalidCases = [
   {
     title: "Root state and getters used by getters",
     code: `
+    const getter5 = function(state, getters, { a }, { b }) {};
+
     const store = {
-      state: {},
-      namespaced: true,
-      getters: {
-        getter(state, getters, rootState, rootGetters) {
-    
+        state: {},
+        namespaced: true,
+        getters: {
+            getter1(state, getters, rootState, rootGetters) {},
+            getter2(state, getters, rS, rG) {},
+            getter3(state, getters, { asd }, { qwe }) {},
+            getter4: (state, getters, rootState, rootGetters) => {},
+            getter5,
         },
-        getter2(state, getters, rS, rG) {
+    };
     
-        },
-        getter2(state, getters, { asd }, { qwe }) {
-    
-        },
-      },
-    }
     `,
     errors: R.times(
       R.always({
         messageId: "avoidRootAssets",
       }),
-      3,
+      5,
     ),
   },
   {
