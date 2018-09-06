@@ -29,13 +29,37 @@ const invalidCases = [
             getter5,
         },
     };
-    
     `,
     errors: R.times(
       R.always({
         messageId: "avoidRootAssets",
       }),
       5,
+    ),
+  },
+  {
+    title: "Deep linked getter",
+    code: `
+    const getter = function(state, getters, { a }, { b }) {};
+
+    const getters = {
+        getter,
+    };
+    
+    const store = {
+        state: {},
+        namespaced: true,
+        getters: {
+            getter,
+        },
+    };
+    
+    `,
+    errors: R.times(
+      R.always({
+        messageId: "avoidRootAssets",
+      }),
+      1,
     ),
   },
   {
