@@ -39,6 +39,39 @@ const invalidCases = [
       3,
     ),
   },
+  {
+    title: "Root state and getters used by actions",
+    code: `
+    const action6 = function (ctx) {
+      console.log(ctx.rootState)
+      console.log(ctx.rootGetters)
+    };
+    
+    const store = {
+      state: {},
+      namespaced: true,
+      actions: {
+          action1({ rootState, rootGetters }) {},
+          action2({ rootState: rs, rootGetters: rg }) {},
+          action3: function({ rootState, rootGetters }) {},
+          action4: (ctx) => {
+            const { rootState, rootGetters } = ctx;
+          },
+          action5(ctx) {
+            console.log(ctx.rootState);
+            console.log(ctx.rootGetters);
+          },
+          action6,
+      },
+  };  
+    `,
+    errors: R.times(
+      R.always({
+        messageId: "avoidRootAssets",
+      }),
+      12,
+    ),
+  },
 ]
 
 const validCases = [
@@ -53,6 +86,22 @@ const validCases = [
         },
       },
     }
+    `,
+  },
+  {
+    title: "Valid use of context object",
+    code: `
+    const store = {
+      state: {},
+      namespaced: true,
+      actions: {
+          action({ commit, dispatch, state }) {},
+          action2(ctx) {
+              console.log(ctx.state);
+              console.log(ctx.getters);
+          },
+      },
+    };  
     `,
   },
 ]
