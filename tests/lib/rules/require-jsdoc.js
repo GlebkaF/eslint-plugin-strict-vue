@@ -415,7 +415,7 @@ const invalidCases = [
 
 const { valid, invalid } = prepareCases(validCases, invalidCases)
 
-// ruleTester.run("require-jsdoc", rule, {
-//   valid,
-//   invalid,
-// })
+ruleTester.run("require-jsdoc", rule, {
+  valid,
+  invalid,
+})

@@ -32,7 +32,7 @@ const invalidCases = [
     `,
     errors: R.times(
       R.always({
-        message: "Don't dispatch/commit to root store.",
+        messageId: "avoidRootCalls",
       }),
       4,
     ),
@@ -53,7 +53,7 @@ const invalidCases = [
     `,
     errors: R.times(
       R.always({
-        message: "Don't dispatch/commit to root store.",
+        messageId: "avoidRootCalls",
       }),
       2,
     ),
@@ -94,7 +94,7 @@ const validCases = [
 
 const { valid, invalid } = prepareCases(validCases, invalidCases)
 
-// ruleTester.run("no-root-store-calls", rule, {
-//   valid,
-//   invalid,
-// })
+ruleTester.run("no-root-store-calls", rule, {
+  valid,
+  invalid,
+})
