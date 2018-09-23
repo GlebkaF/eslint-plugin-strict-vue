@@ -6,7 +6,7 @@
 Various ESLint rules to make you Vue(x) code a bit stricter
 
 ## 🥋 Requirements
-* ESLint >=4.7.0
+* ESLint >=4.15.0
 * Node.js >=8.0.0
 
 ## 🏋 Installation

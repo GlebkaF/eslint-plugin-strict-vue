@@ -1,4 +1,4 @@
-const { isEmpty, map, omit, filter, path, complement } = require("ramda")
+const { isEmpty, map, omit, filter } = require("ramda")
 
 /**
  * Prepare testcases by filtering using skip and only props.
@@ -20,7 +20,7 @@ function prepareCases(valid = [], invalid) {
   })
 
   // there are no standalone testcases
-  if (isEmpty(standaloneValidCases) && isEmpty(standaloneValidCases)) {
+  if (isEmpty(standaloneValidCases) && isEmpty(standaloneInvalidCases)) {
     return prepareReturnValue(valid, invalid)
   }
 
