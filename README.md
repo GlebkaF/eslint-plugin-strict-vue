@@ -1,5 +1,5 @@
 # eslint-plugin-strict-vue
-<img src="https://pictr.com/images/2018/09/27/0Um6EQ.png" width="180" align="right">
+<img src="https://pp.userapi.com/c844617/v844617084/186e5e/H8QCiFc-wSc.jpg" width="180" align="right">
 
 [![NPM version](https://img.shields.io/npm/v/eslint-plugin-strict-vue.svg?style=flat)](https://npmjs.org/package/eslint-plugin-strict-vue)
 
